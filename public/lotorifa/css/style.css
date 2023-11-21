@@ -1,0 +1,971 @@
+:root {
+  --primary: #0072C6;
+  --secondary: #1B99B2;
+  --orange: #FA641E;
+  --gray: #4C556C;
+  --light: #EDF5FF;
+  --dark: #1D1D1C;
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--gray);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 8px
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  transition: all 0.5s;
+  z-index: 997;
+  padding: 15px 0;
+  background: #fff;
+}
+
+#header.header-scrolled, #header.header-inner-pages {
+  padding: 12px 0;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#header .logo {
+  font-size: 32px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: "Poppins", sans-serif;
+}
+
+#header .logo img {
+  width: 65%;
+}
+
+@media (max-width: 992px) {
+  #header {
+    padding: 12px 0;
+  }
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+* Desktop Navigation 
+*/
+.navbar {
+  padding: 0;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a, .navbar a:focus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 10px 20px;
+  font-size: 15px;
+  color: var(--primary);
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.navbar a i, .navbar a:focus i {
+  font-size: 12px;
+  line-height: 0;
+  margin-left: 5px;
+}
+
+.navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover>a {
+  color: var(--orange);
+}
+
+.navbar .getstarted, .navbar .getstarted:focus {
+  padding: 6px 25px;
+  margin-left: 30px;
+  border-radius: 50px;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.navbar .getstarted:hover, .navbar .getstarted:focus:hover {
+  color: #fff;
+  background: var(--orange);
+}
+
+.navbar .dropdown ul {
+  display: block;
+  position: absolute;
+  left: 14px;
+  top: calc(100% + 30px);
+  margin: 0;
+  padding: 10px 0;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.navbar .dropdown ul li {
+  min-width: 200px;
+}
+
+.navbar .dropdown ul a {
+  padding: 10px 20px;
+  font-size: 15px;
+  text-transform: none;
+}
+
+.navbar .dropdown ul a i {
+  font-size: 12px;
+}
+
+.navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover>a {
+  color: var(--primary);
+}
+
+.navbar .dropdown:hover>ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+.navbar .dropdown .dropdown ul {
+  top: 0;
+  left: calc(100% - 30px);
+  visibility: hidden;
+}
+
+.navbar .dropdown .dropdown:hover>ul {
+  opacity: 1;
+  top: 0;
+  left: 100%;
+  visibility: visible;
+}
+
+@media (max-width: 1366px) {
+  .navbar .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+  .navbar .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
+
+/**
+* Mobile Navigation 
+*/
+.mobile-nav-toggle {
+  color: var(--primary);
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+  line-height: 0;
+  transition: 0.5s;
+}
+
+.mobile-nav-toggle.bi-x {
+  color: #fff;
+}
+
+@media (max-width: 991px) {
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .navbar ul {
+    display: none;
+  }
+}
+
+.navbar-mobile {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 114, 198, 0.9);
+  transition: 0.3s;
+}
+
+.navbar-mobile .mobile-nav-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.navbar-mobile ul {
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow-y: auto;
+  transition: 0.3s;
+}
+
+.navbar-mobile a, .navbar-mobile a:focus {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: var(--primary);
+}
+
+.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover>a {
+  color: var(--orange);
+}
+
+.navbar-mobile .getstarted, .navbar-mobile .getstarted:focus {
+  margin: 15px;
+}
+
+.navbar-mobile .dropdown ul {
+  position: static;
+  display: none;
+  margin: 10px 20px;
+  padding: 10px 0;
+  z-index: 99;
+  opacity: 1;
+  visibility: visible;
+  background: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+}
+
+.navbar-mobile .dropdown ul li {
+  min-width: 200px;
+}
+
+.navbar-mobile .dropdown ul a {
+  padding: 10px 20px;
+}
+
+.navbar-mobile .dropdown ul a i {
+  font-size: 12px;
+}
+
+.navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover>a {
+  color: var(--primary);
+}
+
+.navbar-mobile .dropdown>.dropdown-active {
+  display: block;
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.btn-get-started {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 8px 30px 9px 30px;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  transition: 0.5s;
+}
+
+.btn-get-started {
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+  margin-right: 10px;
+}
+
+.btn-get-started:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Hero 
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  padding-top: 95px;
+  background: url('../img/background/bg4.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* 
+#hero .container {
+  padding-top: 80px;
+} */
+
+#hero .video-container #my-video {
+  width: 100%;
+}
+
+/* @media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+} */
+
+@media (max-width: 575px) {
+  #hero {
+    height: 100%;
+    width: 100%;
+  }
+
+  section#hero {
+    padding: 60px 0 10px 0;
+  }
+
+  #hero .video-container #my-video {
+    width: 100%;
+    padding-top: 55px
+  }
+}
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+}
+
+.section-bg {
+  background-color: #eeeef5;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: var(--primary);
+}
+
+.section-title p {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Concursos
+--------------------------------------------------------------*/
+.concursos {
+  padding-top: 90px;
+}
+
+.concursos .data h2 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  color: var(--primary);
+}
+
+.concursos .numeros p {
+  padding-top: 25px;
+}
+
+/*--------------------------------------------------------------
+# Jogos
+--------------------------------------------------------------*/
+.jogos {
+  padding-top: 90px;
+}
+
+.jogos .data h2 {
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  color: var(--primary);
+}
+
+.jogos .numeros p {
+  padding-top: 35px;
+}
+
+.jogos .numeros table,
+.resultados .numeros table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.jogos .numeros table, th, td,
+.resultados .numeros table, th, td {
+  border: 1px solid #ccc;
+}
+
+.jogos .numeros th, td,
+.resultados .numeros th, td {
+  padding: 8px;
+  text-align: center;
+}
+
+.jogos .numeros ul,
+.resultados .numeros ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.jogos .numeros li,
+.resultados .numeros li {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: 400;
+}
+
+.dis:hover {
+  background-color: var(--primary);
+  color: var(--light) !important;
+}
+
+.ind {
+  background-color: var(--orange);
+  color: var(--light) !important;
+}
+
+.jogos .valor p {
+  margin: 0;
+  padding: 0;
+}
+
+.jogos .valor span {
+  font-size: 30px;
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .jogos .numeros table {
+    border: 0;
+  }
+
+  .jogos .numeros table thead {
+    display: none;
+  }
+
+  .jogos .numeros table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .jogos .numeros table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .jogos .numeros table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about .content h2 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.about .content p {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--gray);
+  text-align: justify;
+}
+
+.about .content .infos h2 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 25px;
+  color: var(--primary);
+}
+
+.about .content .infos ol {
+  padding: 0;
+  margin-left: 15px;
+}
+
+.about .content .infos li {
+  font-size: 16px;
+  text-align: justify;
+  padding: 5px;
+}
+
+.about .content .card {
+  background: #f4f4f6;
+  border: solid 1px #f4f4f6;
+  padding: 50px 40px;
+}
+
+.about .content .card h2 {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 50px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.about .content .card p {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.about .content .card p>span {
+  font-weight: 500;
+}
+
+.about .card-ranking {
+  background-color: var(--primary);
+  padding: 50px 40px;
+  border-radius: 3px;
+  text-align: left;
+  margin-top: 25px;
+}
+
+.about .card-ranking h2 {
+  color: var(--light);
+  font-size: 35px;
+}
+
+.about .card-ranking p {
+  color: var(--light);
+  text-align: justify;
+}
+
+.about .card-ranking .btn-get-started:hover {
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+@media (max-width: 575px) {
+  .about .card-ranking {
+    padding: 50px 20px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Descriçãp
+--------------------------------------------------------------*/
+.descricao {
+  width: 100%;
+  background: url('../img/background/bg3.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+  text-align: center;
+}
+
+section.descricao {
+  padding: 40px 0;
+}
+
+.descricao .content h2 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  margin-bottom: 20px;
+  color: var(--light);
+}
+
+.descricao .video-container #my-video {
+  width: 50%;
+}
+
+.descricao .card-afiliado {
+  background-color: var(--primary);
+  padding: 50px 40px;
+  border-radius: 3px;
+  text-align: left;
+}
+
+.descricao .card-afiliado h2 {
+  color: var(--light);
+  font-size: 35px;
+}
+
+.descricao .card-afiliado p {
+  color: var(--light);
+  text-align: justify;
+}
+
+.descricao .card-afiliado h3 {
+  color: var(--light);
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.descricao .card-afiliado .btn-get-started:hover {
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+@media (max-width: 575px) {
+  .descricao .video-container #my-video {
+    width: 100%;
+  }
+
+  .descricao .card {
+    padding: 50px 20px;
+  }
+
+  .descricao .card-afiliado {
+    padding: 50px 20px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Resultados
+--------------------------------------------------------------*/
+.resultados {
+  height: 100vh;
+}
+
+.resultados .content {
+  padding-top: 60px;
+}
+
+.resultados .data h2 {
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  color: var(--primary);
+}
+
+.resultados .data span {
+  margin-bottom: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.resultados .numeros p {
+  padding-top: 35px;
+}
+
+.resultados .valor p {
+  margin: 0;
+  padding: 0;
+}
+
+.resultados .valor span {
+  font-size: 30px;
+  color: var(--primary);
+}
+
+.resultados .card {
+  background: #f4f4f6;
+  border: solid 1px #f4f4f6;
+  padding: 50px 40px;
+}
+
+.resultados .card h2 {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 50px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.resultados .card p {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.resultados .card p>span {
+  font-weight: 500;
+}
+
+/*--------------------------------------------------------------
+# Afiliado
+--------------------------------------------------------------*/
+#afiliado {
+  width: 100%;
+  height: 100vh;
+  background: url('../img/background/bg2.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+#afiliado .container {
+  padding-top: 80px;
+}
+
+@media (max-width: 575px) {
+  #afiliado {
+    background-image: url('../img/background/bg2-mobile.png');
+  }
+}
+
+/*--------------------------------------------------------------
+# Cadastro afiliado 
+--------------------------------------------------------------*/
+.cadastro-afiliado .formulario {
+  padding-top: 0;
+}
+
+/*--------------------------------------------------------------
+# Cadastro
+--------------------------------------------------------------*/
+.cadastro {
+  width: 100%;
+  height: 100vh;
+  background: url('../img/background/bg3.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
+.login {
+  width: 100%;
+  height: 100vh;
+  background: url('../img/background/bg4.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.login .formulario .card {
+  margin-top: 10%;
+}
+
+/*--------------------------------------------------------------
+# Formulário
+--------------------------------------------------------------*/
+.formulario {
+  padding-top: 80px;
+}
+
+.formulario .card {
+  padding: 1.5rem 1.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.formulario .card-body {
+  text-align: center;
+}
+
+.formulario .btn-primary {
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+/*--------------------------------------------------------------
+# Ranking
+--------------------------------------------------------------*/
+.ranking {
+  height: 100vh;
+  background: url('../img/background/bg4.png') no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.ranking .content {
+  padding-top: 60px;
+}
+
+.ranking .table {
+  overflow: hidden;
+  padding: 1.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #fff;
+  border-radius: 10px;
+  border-collapse: separate; 
+  width: 100%;
+}
+
+.ranking .table th,
+.ranking .table td {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+
+@media (max-width: 575px) {
+  .ranking {
+    height: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Modal 
+--------------------------------------------------------------*/
+.cart-modal {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1050;
+  transition: right 0.3s ease;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.cart-modal.open {
+  right: 0;
+}
+
+.cart-modal .modal-header {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.cart-modal .btn-close-white {
+  color: var(--light);
+}
+
+.cart-modal .item {
+  display: flex;
+  align-items: center;
+}
+
+.cart-modal .number {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+.cart-modal .number:hover {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.cart-modal .total {
+  text-align: right;
+  margin-top: 25px;
+  color: var(--primary);
+}
+
+.cart-modal .icon-right {
+  position: absolute;
+  top: 23px;
+  right: 10px;
+  font-size: 20px;
+  color: var(--orange);
+}
+
+.cart-modal .modal-footer .btn-primary {
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+  text-align: center;
+  color: #444444;
+  font-size: 14px;
+  background: #eeeef5;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#footer .credits {
+  padding-top: 5px;
+  font-size: 13px;
+  color: #444444;
+}
+
+#footer .credits a {
+  transition: 0.3s;
+}
+
+#footer .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #deddec;
+  color: var(--primary);
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#footer .social-links a:hover {
+  background: var(--secondary);
+  color: #fff;
+  text-decoration: none;
+}
