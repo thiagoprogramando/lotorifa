@@ -39,7 +39,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Concurso {{ $gamer->title }}</h5>
-                                <p class="card-text">Previsão de sorteio 10/11/2023</p>
                                 <a href="{{ route('numeros', ['id' => $gamer->id]) }}" class="btn btn-get-started"
                                     type="submit">Escolha seus números</a>
                             </div>

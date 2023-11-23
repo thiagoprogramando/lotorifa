@@ -37,8 +37,7 @@
                     @if (auth()->check())
                         <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a>
                         </li>
-                        <li><a class="cart" href="{{ route('sairCliente') }}"><i
-                                    class="bi bi-cart fs-4 text"></i></a></li>
+                        <li><a class="cart" href="{{ route('sairCliente') }}"><i class="bi bi-box-arrow-right fs-4"></i></a></li>
                     @else
                         <li><a class="nav-link scrollto" href="afiliado.php">Seja um Afiliado</a></li>
                         <li><a class="nav-link scrollto " href="{{ route('cadastro') }}">Cadastra-se</a></li>
