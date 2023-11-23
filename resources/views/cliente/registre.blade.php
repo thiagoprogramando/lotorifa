@@ -16,13 +16,13 @@
                                         <input type="text" class="form-control" name="name" placeholder="Nome:"/>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="number" class="form-control" name="cpf" placeholder="CPF:"/>
+                                        <input type="text" class="form-control cpf" name="cpf" placeholder="CPF:"/>
                                     </div>
                                     <div class="mb-3">
                                         <input type="email" class="form-control" name="email" placeholder="Email:"/>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="tell" class="form-control" name="phone" placeholder="Celular:"/>
+                                        <input type="text" class="form-control celular" name="phone" placeholder="Celular:"/>
                                     </div>
                                     <div class="mb-3">
                                         <input type="password" class="form-control" name="password" placeholder="Senha:"/>
