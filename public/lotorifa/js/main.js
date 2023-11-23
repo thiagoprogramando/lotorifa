@@ -151,4 +151,15 @@
   closeButton.addEventListener("click", function () {
     cartModal.classList.remove("open");
   });
+
+
+  /**
+  * Slide
+  */
+  var swiper = new Swiper(".heroSwiper", {
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
 })()

@@ -25,7 +25,9 @@ class IndexController extends Controller
     }
 
     public function result() {
-        return view('cliente.result');
+        $games = Game::where('status', 3)->get();
+
+        return view('cliente.result', ['games' => $games]);
     }
 
     public function number_option($id) {

@@ -12,8 +12,11 @@ return new class extends Migration {
             $table->string('title');
             $table->integer('id_creator');
             $table->integer('winner_one')->nullable();
+            $table->integer('number_one')->nullable();
             $table->integer('winner_tow')->nullable();
+            $table->integer('number_tow')->nullable();
             $table->integer('winner_three')->nullable();
+            $table->integer('number_three')->nullable();
             $table->decimal('value_number', 10, 2);
             $table->integer('total_number');
             $table->integer('status');
