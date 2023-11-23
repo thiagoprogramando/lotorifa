@@ -31,7 +31,7 @@ class UserController extends Controller {
 
         $rules = [
             'name'      => 'required|string',
-            'cpf'       => 'required|numeric|unique:users',
+            'cpf'       => 'required|unique:users',
             'email'     => 'required|email|unique:users',
             'phone'     => 'required',
             'password'  => 'required',
@@ -41,7 +41,6 @@ class UserController extends Controller {
             'name.required'     => 'O campo nome é obrigatório.',
             'name.string'       => 'O campo nome deve ser verídico.',
             'cpf.required'      => 'O campo CPF é obrigatório.',
-            'cpf.numeric'       => 'O campo CPF deve conter apenas números.',
             'cpf.unique'        => 'CPF já cadastrado.',
             'email.required'    => 'O campo email é obrigatório.',
             'email.email'       => 'O campo email deve ser um endereço de e-mail válido.',
@@ -63,13 +62,12 @@ class UserController extends Controller {
             return redirect()->back()->with('error', 'CPF inválido! Informe um documento válido.');
         }
 
-
         $attributes = [
             'name'      => $request->name,
-            'cpf'       => $request->cpf,
+            'cpf'       => str_replace(['.', '-'], '', $request->cpf),
             'email'     => $request->email,
             'password'  => bcrypt($request->password),
-            'phone'     => $request->phone,
+            'phone'     => str_replace(['(', ')', ' ', '-'], '', $request->phone),
             'type'      => 2,
         ];
         $user = User::create($attributes);
