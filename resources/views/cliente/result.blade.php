@@ -44,7 +44,7 @@
                                 <div class="card">
                                     <h2>Distribuição dos Prêmios:</h2>
                                     <p> 1º Ganhador: <span> {{ $game->winnerOne->name }}   - R$ 400</span> </p>
-                                    <p> 2º Ganhador: <span> {{ $game->winnerTow->name }}   - R$ 200</span> </p>
+                                    <p> 2º Ganhador: <span> {{ $game->winnerTwo->name }}   - R$ 200</span> </p>
                                     <p> 3º Ganhador: <span> {{ $game->winnerThree->name }} - R$ 100</span> </p>
                                 </div>
                             </div>

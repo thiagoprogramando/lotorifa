@@ -38,7 +38,7 @@
                     <div class="col-sm-4 mt-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Concurso {{ $gamer->title }}</h5>
+                                <h5 class="card-title">{{ $gamer->title }}</h5>
                                 <a href="{{ route('numeros', ['id' => $gamer->id]) }}" class="btn btn-get-started"
                                     type="submit">Escolha seus números</a>
                             </div>
