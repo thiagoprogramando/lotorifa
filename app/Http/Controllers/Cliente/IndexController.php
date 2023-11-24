@@ -25,7 +25,7 @@ class IndexController extends Controller
     }
 
     public function result() {
-        $games = Game::where('status', 3)->get();
+        $games = Game::where('status', 3)->with(['winnerOne', 'winnerTwo', 'winnerThree'])->get();
 
         return view('cliente.result', ['games' => $games]);
     }

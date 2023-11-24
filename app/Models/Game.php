@@ -21,4 +21,16 @@ class Game extends Model
         'total_number',
         'status', // 1 - Aberto | 2 - Fechado | 3 - Concluído
     ];
+
+    public function winnerOne() {
+        return $this->belongsTo(User::class, 'winner_one');
+    }
+
+    public function winnerTwo() {
+        return $this->belongsTo(User::class, 'winner_two');
+    }
+
+    public function winnerThree() {
+        return $this->belongsTo(User::class, 'winner_three');
+    }
 }
