@@ -15,7 +15,7 @@ class Game extends Model
         'title',
         'id_creator',
         'winner_one',
-        'winner_tow',
+        'winner_two',
         'winner_three',
         'value_number',
         'total_number',
