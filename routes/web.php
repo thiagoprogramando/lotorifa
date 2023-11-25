@@ -17,6 +17,8 @@ Route::get('/cadastro/{id?}', [IndexController::class, 'registre'])->name('cadas
 Route::get('/acesso', [IndexController::class, 'login'])->name('acesso');
 Route::get('/resultado', [IndexController::class, 'result'])->name('resultado');
 Route::get('/numeros/{id}', [IndexController::class, 'number_option'])->name('numeros');
+Route::get('/ranking', [IndexController::class, 'ranking'])->name('ranking');
+Route::get('/afiliado', [IndexController::class, 'affiliate'])->name('afiliado');
 
 Route::post('loginCliente', [ClienteUserController::class, 'login'])->name('loginCliente');
 Route::post('createUser', [ClienteUserController::class, 'createUser'])->name('createUser');

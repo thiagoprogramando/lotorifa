@@ -337,24 +337,67 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Hero 
 --------------------------------------------------------------*/
-.hero {
+/* .hero {
   width: 100%;
   background: url('../img/background/bg4.png') no-repeat;
   background-position: center center;
   background-size: cover;
 
+} */
+
+.hero .container {
+  padding-top: 75px;
 }
 
-.heroSwiper .swiper-button-next,
-.heroSwiper .swiper-button-prev {
-  color: #eeeef5;
+.hero .swiper-button-next:after,
+.hero .swiper-button-prev:after {
+  display: none;
+}
+
+.hero .swiper-button-prev img {
+  position: relative;
+  left: 25%;
+}
+
+.hero .swiper-button-prev,
+.hero .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+}
+
+.hero .swiper-button-prev img,
+.hero .swiper-button-next img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 991px) {
+  .hero .mobile-image {
+    display: none;
+  }
+
+  .hero .desktop-image {
+    display: block;
+  }
+}
+
+@media (max-width: 990px) {
+  .hero .desktop-image {
+    display: none;
+  }
+
+  .hero .mobile-image {
+    display: block;
+  }
 }
 
 @media (max-width: 575px) {
-  .hero {
-    margin-top: 80px;
+  section.hero {
+    padding-bottom: 0;
   }
 }
+
 
 /*--------------------------------------------------------------
 # Sections General
@@ -393,9 +436,16 @@ section {
   padding-top: 90px;
 } */
 
+.concursos .swiper-slide .card {
+  width: 100%;
+  margin: 0 10px;
+}
+
 .concursos .card-body {
   background-color: var(--primary);
   color: var(--light);
+  padding: 20px 40px 20px 40px;
+  text-align: center;
 }
 
 .concursos .card-body h5 {
@@ -405,6 +455,52 @@ section {
 
 .concursos .card-body p {
   padding-bottom: 15px;
+}
+
+.concursos .swiper-button-next:after,
+.concursos .swiper-button-prev:after {
+  display: none;
+}
+
+.concursos .swiper-button-prev img {
+  position: relative;
+  left: 25%;
+}
+
+.concursos .swiper-button-prev,
+.concursos .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+}
+
+.concursos .swiper-button-prev img,
+.concursos .swiper-button-next img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .concursos {
+    padding: 60px 20px;
+  }
+
+  .concursos .swiper-slide .card {
+    margin: 0;
+  }
+
+  .concursos .swiper-slide .swiper-slide-active {
+    margin: 0;
+  }
+
+  .concursos .swiper-button-prev img {
+    position: relative;
+    left: 0;
+  }
+
+  .concursos .btn-get-started {
+    font-size: 15px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -453,7 +549,7 @@ section {
 
 .jogos .numeros li,
 .resultados .numeros li {
-  margin: 5px;
+  margin: 5px 5px 5px 0;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 50%;
@@ -572,6 +668,15 @@ section {
   .about .content {
     margin: 0 10px 0 10px;
   }
+
+  .about .content .card {
+    padding: 50px 20px;
+  }
+
+  .about .content .card h2 {
+    font-size: 18px;
+    text-align: center;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -590,6 +695,12 @@ section {
   font-size: 16px;
   color: var(--gray);
   text-align: justify;
+}
+
+@media (max-width: 575px) {
+  .portal-transparencia {
+    margin: 0 10px 0 10px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -682,14 +793,18 @@ section.descricao {
   text-align: justify;
 }
 
-.descricao .card-afiliado h3 {
-  color: var(--light);
+.descricao .card-afiliado .card-body h3 {
+  color: var(--primary);
   font-weight: 600;
-  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .descricao .card-afiliado .card-body p {
   color: var(--gray);
+}
+
+.descricao .card-afiliado .btn-get-started {
+  width: 100%;
 }
 
 .descricao .card-afiliado .table thead {
@@ -697,6 +812,7 @@ section.descricao {
   font-size: 14px;
   text-transform: uppercase;
   background-color: var(--primary);
+  text-align: center;
 }
 
 .descricao .card-afiliado .table th {
@@ -718,7 +834,7 @@ section.descricao {
   }
 
   .descricao .card {
-    padding: 50px 20px;
+    padding: 50px 10px;
   }
 
   .descricao .card-afiliado {
@@ -803,6 +919,13 @@ section.descricao {
 .resultados .card p>span {
   font-weight: 500;
 }
+
+@media (max-width: 575px) {
+  .resultados .card {
+    padding: 50px 20px;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # Afiliado
@@ -933,8 +1056,8 @@ section.descricao {
 }
 
 .ranking p {
- color: var(--light);
- text-align: left;
+  color: var(--light);
+  text-align: left;
 }
 
 
@@ -1027,8 +1150,8 @@ section.descricao {
 .instituicao p {
   font-weight: 300;
   font-size: 15px;
+  margin-top: 15px;
 }
-
 
 /*--------------------------------------------------------------
 # Footer

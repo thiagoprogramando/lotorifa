@@ -7,15 +7,15 @@
 
                     <div class="col-lg-12 row">
 
-                        <div class="col-12">
+                        <div class="col-lg-12">
                             <div class="data">
                                 <h2>Resultados</h2>
-                                <hr width="100%">
                             </div>
+                            <hr>
                         </div>
 
                         @foreach ($games as $game)
-                            <div class="col-7">
+                            <div class="col-lg-6 mt-3">
                                 <div class="numeros">
                                     <h3> Concurso: {{ $game->title }} </h3>
 
@@ -29,28 +29,40 @@
                                         </tbody>
                                     </table>
                                 </div>
-        
+
                                 <div class="valor mt-3">
                                     <p>Arrecadação total para premiação:</p>
                                     <span>R$ 700,00</span>
                                     <br>
-        
-                                    <p>Acumulado do mês:</p>
+                                    <br>
+                                    <p>Acumulado total do mês:</p>
                                     <span style="font-size: 18px;">R$ 10.000,00</span>
                                 </div>
                             </div>
 
-                            <div class="col-5">
+                            <div class="col-lg-6 mt-3">
                                 <div class="card">
                                     <h2>Distribuição dos Prêmios:</h2>
-                                    <p> 1º Ganhador: <span>{{ optional($game->winnerOne)->name ?? 'N/A' }} - R$ 400</span> </p>
-                                    <p> 2º Ganhador: <span>{{ optional($game->winnerTwo)->name ?? 'N/A' }} - R$ 200</span> </p>
-                                    <p> 3º Ganhador: <span>{{ optional($game->winnerThree)->name ?? 'N/A' }} - R$ 100</span> </p>
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td>1º Sorteado: {{ optional($game->winnerOne)->name ?? 'Não indentificado' }} - R$ 400</td>
+                                                <td>400 pontos</td>
+                                            </tr>
+                                            <tr class="custom-row-color">
+                                                <td>2º Sorteado: {{ optional($game->winnerTwo)->name ?? 'Não indentificado' }} - R$ 200</td>
+                                                <td>200 pontos</td>
+                                            </tr>
+                                            <tr class="custom-row-color">
+                                                <td>3º Sorteado: {{ optional($game->winnerThree)->name ?? 'Não indentificado' }} - R$ 100</td>
+                                                <td>100 pontos</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
         </section>

@@ -36,4 +36,14 @@ class IndexController extends Controller
 
         return view('cliente.number_options', ['numbers' => $numbers, 'game' => $game]);
     }
+
+    public function ranking() {
+        $users = Game::where('status', 3)->with(['winnerOne', 'winnerTwo', 'winnerThree'])->get();
+
+        return view('cliente.ranking', ['users' => $users]);
+    }
+
+    public function affiliate() {
+        return view('cliente.affiliate');
+    }
 }
