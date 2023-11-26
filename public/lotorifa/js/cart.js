@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         li.addEventListener('click', function () {
             var numberId = li.getAttribute('data-number-id');
             var gameId = li.getAttribute('data-game-id');
+            var gameName = li.getAttribute('data-game-name');
             var number = li.getAttribute('data-number');
             var numberValue = li.getAttribute('data-number-value');
 
@@ -41,8 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         } else {
                             // Adicione o número ao carrinho
                             existingNumbers.push({
-                                numberId: numberId,
                                 gameId: gameId,
+                                gameName: gameName,
+                                numberId: numberId,
                                 numberValue: numberValue,
                                 number: number
                             });
@@ -78,7 +80,7 @@ function updateCartModal() {
         var cartItem = $('<div class="item mb-3">' +
             '<div class="text">' +
             '<div class="number">' + item.number + '</div>' +
-            '<div class="name">Concurso ' + item.gameId + '</div>' +
+            '<div class="name">Concurso ' + item.gameName + '</div>' +
             '</div>' +
             '<i class="bi bi-trash icon-right delete-icon"></i>' +
             '</div>');

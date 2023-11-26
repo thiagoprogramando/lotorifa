@@ -15,7 +15,7 @@ class UserController extends Controller {
         $credentials = $request->only(['email', 'password']);
         $credentials['password'] = $credentials['password'];
         if (Auth::attempt($credentials)) {
-            return redirect()->route('inicio');
+            return redirect()->route('inicio')->with('success', 'Bem-vindo(a), Boa sorte!');
         } else {
             return redirect()->back()->with('error', 'Credenciais inválidas!');
         }

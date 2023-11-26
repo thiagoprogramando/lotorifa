@@ -19,7 +19,7 @@
                                     <ul>
                                         @foreach($numbers as $number)
                                             @if($number->id_user == null)
-                                                <li class="dis" data-number-id="{{ $number->id }}" data-game-id="{{ $number->id_game }}" data-number-value="{{ $number->value }}" data-number="{{ $number->number }}">
+                                                <li class="dis" data-number-id="{{ $number->id }}" data-game-name="{{ $game->title }}" data-game-id="{{ $number->id_game }}" data-number-value="{{ $number->value }}" data-number="{{ $number->number }}">
                                                     {{ $number->number }}
                                                 </li>
                                             @else

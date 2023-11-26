@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Cliente\CartController;
 use App\Http\Controllers\Cliente\IndexController;
 use App\Http\Controllers\Cliente\UserController as ClienteUserController;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,6 @@ Route::middleware(['auth'])->group(function () {
     //AMBOS - Autenticado
     Route::get('/sair', [UserController::class, 'logout'])->name('sair');
     Route::get('/sairCliente', [UserController::class, 'logoutClient'])->name('sairCliente');
+
+    Route::post('endcart', [CartController::class, 'endcart'])->name('endcart');
 });
