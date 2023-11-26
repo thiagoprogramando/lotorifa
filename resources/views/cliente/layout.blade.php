@@ -17,7 +17,9 @@
     <link href="{{ asset('lotorifa/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lotorifa/css/style.css') }}" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -26,23 +28,28 @@
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center justify-content-between">
 
-            <a href="{{ route('inicio') }}" class="logo"><img src="{{ asset('lotorifa/img/logo.svg') }}" class="img-fluid"></a>
+            <a href="{{ route('inicio') }}" class="logo"><img src="{{ asset('lotorifa/img/logo.svg') }}"
+                    class="img-fluid"></a>
 
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="{{ route('inicio') }}">Início</a></li>
                     <li><a class="nav-link scrollto" href="{{ route('resultado') }}">Resultados</a></li>
                     <li><a class="nav-link scrollto" href="{{ route('ranking') }}">Ranking</a></li>
-                    <li><a class="nav-link scrollto" href="{{ route('inicio') }}#portal-transparencia">Transparência</a></li>
-                    
+                    <li><a class="nav-link scrollto"
+                            href="{{ route('inicio') }}#portal-transparencia">Transparência</a></li>
+
                     @if (auth()->check())
-                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a></li>
-                        <li><a class="cart" href="{{ route('sairCliente') }}"><i class="bi bi-box-arrow-right fs-4"></i></a></li>
+                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a>
+                        </li>
+                        <li><a class="cart" href="{{ route('sairCliente') }}"><i
+                                    class="bi bi-box-arrow-right fs-4"></i></a></li>
                     @else
                         <li><a class="nav-link scrollto" href="{{ route('afiliado') }}">Seja um Afiliado</a></li>
                         <li><a class="nav-link scrollto " href="{{ route('cadastro') }}">Cadastra-se</a></li>
                         <li><a class="getstarted scrollto" href="{{ route('acesso') }}">Entrar</a></li>
-                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a></li>
+                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a>
+                        </li>
                     @endif
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -109,20 +116,13 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Fechar"></button>
             </div>
-            <div class="modal-body">
-                <div class="item">
-                    <div class="number">1</div>
-                    <div class="name">Concurso 001</div>
-                    <i class="bi bi-trash icon-right"></i>
-                </div>
-                <div class="total">
-                    R$ 2,00
-                </div>
+            <div class="modal-body" id="cartItems" style="max-height: 500px; overflow-y: auto;">
+
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Finalizar Compra</button>
+                <button type="button" class="btn btn-danger" onclick="clearCart()">Limpar</button>
+                <button type="button" class="btn btn-primary">Finalizar</button>
             </div>
         </div>
     </div>
@@ -130,6 +130,8 @@
     <script src="{{ asset('lotorifa/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/js/main.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('lotorifa/js/cart.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -137,7 +139,7 @@
 
             cpfInputs.forEach(function(input) {
                 input.addEventListener('input', function() {
-                    var value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+                    var value = input.value.replace(/\D/g, '');
                     if (value.length > 3) {
                         value = value.substring(0, 3) + '.' + value.substring(3);
                     }
@@ -155,7 +157,7 @@
 
             phoneInputs.forEach(function(input) {
                 input.addEventListener('input', function() {
-                    var value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+                    var value = input.value.replace(/\D/g, '');
                     var formattedValue = '';
 
                     if (value.length > 0) {

@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
 
                         <div class="data">
-                            <h2>Números - Concurso {{ $game->title }}</h2>
+                            <h2>Números - {{ $game->title }}</h2>
                         </div>
 
                         <div class="numeros">
@@ -19,7 +19,9 @@
                                     <ul>
                                         @foreach($numbers as $number)
                                             @if($number->id_user == null)
-                                                <li class="dis">{{ $number->number }}</li>
+                                                <li class="dis" data-number-id="{{ $number->id }}" data-game-id="{{ $number->id_game }}" data-number-value="{{ $number->value }}" data-number="{{ $number->number }}">
+                                                    {{ $number->number }}
+                                                </li>
                                             @else
                                                 <li class="ind">{{ $number->number }}</li> 
                                             @endif
@@ -32,7 +34,7 @@
 
                     <div class="valor">
                         <br>
-                        <p>Estimativa de prêmio do próximo concurso 04/10/2023</p>
+                        <p>Prêmiação total</p>
                         <span>R$ 700,00</span>
                         <br><br>
 

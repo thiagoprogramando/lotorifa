@@ -61,10 +61,10 @@
                             @endforeach
                         </div>
                         <div class="swiper-button-prev">
-                            <img src="assets/img/icon/arrow-left-square-fill.svg" alt="prev">
+                            <img src="{{ asset('lotorifa/img/icon/arrow-left-square-fill.svg') }}" alt="prev">
                         </div>
                         <div class="swiper-button-next">
-                            <img src="assets/img/icon/arrow-right-square-fill.svg" alt="next">
+                            <img src="{{ asset('lotorifa/img/icon/arrow-right-square-fill.svg') }}" alt="next">
                         </div>
                     </div>
                 </div>

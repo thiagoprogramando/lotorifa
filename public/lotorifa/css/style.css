@@ -562,9 +562,19 @@ section {
   font-weight: 400;
 }
 
-.jogos .numeros li:hover {
+/* .jogos .numeros li:hover {
   background-color: var(--primary);
   color: var(--light);
+} */
+
+.dis:hover {
+  background-color: var(--primary);
+  color: var(--light) !important;
+}
+
+.ind {
+  background-color: var(--orange);
+  color: var(--light) !important;
 }
 
 .jogos .valor p {
@@ -1095,10 +1105,10 @@ section.descricao {
   color: var(--light);
 }
 
-.cart-modal .item {
+/* .cart-modal .item {
   display: flex;
   align-items: center;
-}
+} */
 
 .cart-modal .number {
   width: 40px;
@@ -1124,13 +1134,28 @@ section.descricao {
   color: var(--primary);
 }
 
-.cart-modal .icon-right {
-  position: absolute;
-  top: 23px;
-  right: 10px;
+.cart-modal .item .icon-right {
+  float: right;
   font-size: 20px;
   color: var(--orange);
 }
+
+.cart-modal .item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-modal .item .icon-right {
+  font-size: 20px;
+  color: var(--orange);
+}
+
+.cart-modal .item .text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .cart-modal .modal-footer .btn-primary {
   background-color: var(--orange);
