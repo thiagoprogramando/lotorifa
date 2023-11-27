@@ -101,6 +101,10 @@
         </script>
     @endif
 
+    <a href="#" id="modalCart">
+        <img src="{{ asset('lotorifa/img/icon/cart.svg') }}" style="height: 70px; position: fixed; bottom: 20px; right: 20px; z-index: 99999;" data-selector="floatingCart" > 
+    </a>
+
     <footer id="footer">
         <div class="container py-4">
             <div class="text-center">
@@ -201,7 +205,7 @@
                 success: function(response) {
                     localStorage.removeItem('carrinho');
                     updateCartModal();
-                    Swal.fire('Sucesso', 'Números finalizados com sucesso!', 'success');
+                    Swal.fire('Sucesso', 'Parabéns! Agora é só esperar o sorteio!', 'success');
                 },
                 error: function(error) {
                     if (error.responseJSON && error.responseJSON.error) {

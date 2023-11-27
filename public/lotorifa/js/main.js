@@ -143,7 +143,13 @@
   const cartButton = document.getElementById("cartButton");
   const cartModal = document.getElementById("cartModal");
 
+  const modalCart = document.getElementById("modalCart");
+
   cartButton.addEventListener("click", function () {
+    cartModal.classList.add("open");
+  });
+
+  modalCart.addEventListener("click", function () {
     cartModal.classList.add("open");
   });
 
