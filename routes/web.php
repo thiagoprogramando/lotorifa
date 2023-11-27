@@ -43,4 +43,7 @@ Route::middleware(['auth'])->group(function () {
     //AMBOS - Autenticado
     Route::get('/sair', [UserController::class, 'logout'])->name('sair');
     Route::get('/sairCliente', [UserController::class, 'logoutClient'])->name('sairCliente');
+    
+    //Cliente - Autenticado
+    Route::post('endcart', [CartController::class, 'endcart'])->name('endcart');
 });
