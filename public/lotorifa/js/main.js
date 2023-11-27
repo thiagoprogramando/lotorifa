@@ -137,32 +137,17 @@
     }
   });
 
-  /**
-   * Shopping cart
-   */
-  const cartButton = document.getElementById("cartButton");
-  const cartModal = document.getElementById("cartModal");
-
-  const modalCart = document.getElementById("modalCart");
-
-  cartButton.addEventListener("click", function () {
-    cartModal.classList.add("open");
+  $('.cartButton').click(function () {
+    $('#cartModal').addClass("open");
   });
 
-  modalCart.addEventListener("click", function () {
-    cartModal.classList.add("open");
+  $('.btn-close').click(function () {
+    $('#cartModal').removeClass("open");
   });
-
-  const closeButton = cartModal.querySelector(".btn-close");
-  closeButton.addEventListener("click", function () {
-    cartModal.classList.remove("open");
-  });
-
 
   /**
   * Slide
   */
-
   var swiper = new Swiper(".heroSwiper", {
     navigation: {
       nextEl: '.swiper-button-next',

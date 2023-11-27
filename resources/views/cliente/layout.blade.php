@@ -41,15 +41,14 @@
                             href="{{ route('inicio') }}#portal-transparencia">Transparência</a></li>
 
                     @if (auth()->check())
-                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a>
+                        <li><a class="cart cartButton" href="#"><i class="bi bi-cart fs-4 text"></i></a>
                         </li>
-                        <li><a class="cart" href="{{ route('sairCliente') }}"><i
-                                    class="bi bi-box-arrow-right fs-4"></i></a></li>
+                        <li><a class="cart modalCart" href="{{ route('sairCliente') }}"><i class="bi bi-box-arrow-right fs-4"></i></a></li>
                     @else
                         <li><a class="nav-link scrollto" href="{{ route('afiliado') }}">Seja um Afiliado</a></li>
                         <li><a class="nav-link scrollto " href="{{ route('cadastro') }}">Cadastra-se</a></li>
                         <li><a class="getstarted scrollto" href="{{ route('acesso') }}">Entrar</a></li>
-                        <li><a class="cart" href="#" id="cartButton"><i class="bi bi-cart fs-4 text"></i></a>
+                        <li><a class="cart cartButton" href="#"><i class="bi bi-cart fs-4 text"></i></a>
                         </li>
                     @endif
                 </ul>
@@ -101,7 +100,7 @@
         </script>
     @endif
 
-    <a href="#" id="modalCart">
+    <a href="#" class="cartButton">
         <img src="{{ asset('lotorifa/img/icon/cart.svg') }}" style="height: 70px; position: fixed; bottom: 20px; right: 20px; z-index: 99999;" data-selector="floatingCart" > 
     </a>
 
@@ -118,8 +117,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Carrinho de Compras</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Fechar"></button>
+                <button type="button" class="btn-close btn-close-white"></button>
             </div>
             <div class="modal-body" id="cartItems" style="max-height: 500px; overflow-y: auto;">
 
@@ -135,11 +133,11 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script src="{{ asset('lotorifa/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/js/main.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('lotorifa/js/cart.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
