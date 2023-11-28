@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\gatway\AssasController as GatwayAssasController;
 use App\Models\Bet;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller {
 
@@ -42,7 +42,9 @@ class CartController extends Controller {
             ], 400);
         }
 
-        $token = '123457';
+        $numberOfItems = count($numbers);
+        $assasController = new GatwayAssasController();
+        $token = $assasController->geraPix($user->name, $user->cpf, $numberOfItems, $user->token);
 
         //End Cart
         foreach ($numbers as $number) {

@@ -64,7 +64,7 @@
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-lg-8">
                     <h2>Você pode ajudar a Comunidade Fanuel comprando os números da sorte.</h2>
-                    <p>É proibida a participação de menores nos concursos da LOTORIFA.</p>
+                    <p>É proibida a participação de menores de 18 anos nos concursos da LOTORIFA.</p>
 
                     <div class="infos">
                         <p>
@@ -180,64 +180,6 @@
                 });
             });
         });
-
-        function endCart() {
-            // Obtenha os números do carrinho do armazenamento local
-            var existingNumbers = JSON.parse(localStorage.getItem('carrinho')) || [];
-
-            // Verifique se há números no carrinho
-            if (existingNumbers.length === 0) {
-                Swal.fire('Erro', 'Seu carrinho está vazio. Adicione números antes de finalizar.', 'error');
-                return;
-            }
-
-            // Faça a chamada AJAX para enviar os números para a rota Laravel
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '/endcart',
-                type: 'POST',
-                data: {
-                    _token: csrfToken,
-                    numbers: existingNumbers
-                },
-                success: function(response) {
-                    localStorage.removeItem('carrinho');
-                    updateCartModal();
-                    Swal.fire('Sucesso', 'Parabéns! Agora é só esperar o sorteio!', 'success');
-                },
-                error: function(error) {
-                    if (error.responseJSON && error.responseJSON.error) {
-                        Swal.fire('Atenção', error.responseJSON.error, 'warning');
-
-                        // Remove os números inválidos do carrinho local
-                        var invalidNumbers = error.responseJSON.invalidNumbers || [];
-                        var existingNumbers = JSON.parse(localStorage.getItem('carrinho')) || [];
-                        var updatedNumbers = existingNumbers.filter(function(item) {
-                            return !invalidNumbers.includes(item.numberId);
-                        });
-                        localStorage.setItem('carrinho', JSON.stringify(updatedNumbers));
-
-                        // Atualiza a exibição do carrinho no modal
-                        updateCartModal();
-                    } else {
-                        Swal.fire('Erro', error.responseText, 'error');
-                    }
-                }
-            });
-        }
-
-        function loginCart() {
-            Swal.fire({
-                title: 'Atenção',
-                text: 'Faça login para finalizar sua aposta!',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ route('acesso') }}';
-                }
-            });
-        }
     </script>
 </body>
 

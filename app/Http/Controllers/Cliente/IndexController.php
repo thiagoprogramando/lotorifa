@@ -32,7 +32,7 @@ class IndexController extends Controller
 
     public function number_option($id) {
         $game = Game::find($id);
-        $numbers = Bet::where('id_game', $id)->get();
+        $numbers = Bet::where('id_game', $id)->orderBy('number', 'asc')->get();
 
         return view('cliente.number_options', ['numbers' => $numbers, 'game' => $game]);
     }

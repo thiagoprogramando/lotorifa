@@ -500,6 +500,7 @@ section {
 
   .concursos .btn-get-started {
     font-size: 15px;
+    width: 100%;
   }
 }
 
@@ -779,7 +780,7 @@ section.descricao {
 
 .descricao .content .text {
   text-align: left;
-  margin-left: 10%;
+  margin-left: 4%;
 }
 
 .descricao .video-container #my-video {
@@ -826,6 +827,7 @@ section.descricao {
 }
 
 .descricao .card-afiliado .table th {
+  border: 1px solid #007bff;
   border-bottom: 2px solid #007bff;
 }
 
@@ -854,6 +856,8 @@ section.descricao {
   .descricao .content .text {
     text-align: center;
     margin-left: 0;
+    font-size: 35px;
+    line-height: 40px;
   }
 
   .descricao .card-afiliado h2 {
@@ -933,6 +937,10 @@ section.descricao {
 @media (max-width: 575px) {
   .resultados .card {
     padding: 50px 20px;
+  }
+  .resultados .card h2 {
+    font-size: 18px;
+    text-align: center;
   }
 }
 

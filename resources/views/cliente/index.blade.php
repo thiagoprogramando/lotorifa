@@ -75,7 +75,7 @@
             <div class="container">
 
                 <div class="row content d-flex align-items-center">
-                    <h2 class="text">Como funciona?</h2>
+                    <h2 class="text">Como funciona o jogo?</h2>
                     <div class="col-lg-6">
                         <div class="video-container">
                             <video id="my-video" controls playsinline>
