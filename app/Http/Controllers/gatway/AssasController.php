@@ -24,7 +24,7 @@ class AssasController extends Controller {
                     'cpfCnpj'   => $cpf,
                 ],
             ];
-            $response = $client->post(env('API_URL_ASSAS') . 'api/v3/customers', $options);
+            $response = $client->post(env('API_URL_ASSAS') . '/v3/customers', $options);
             $body = (string) $response->getBody();
             $data = json_decode($body, true);
 
@@ -47,7 +47,7 @@ class AssasController extends Controller {
             'description'       => 'LotoRifa - Boa sorte!',
         ];
 
-        $response = $client->post(env('API_URL_ASSAS') . 'api/v3/payments', $options);
+        $response = $client->post(env('API_URL_ASSAS') . '/v3/payments', $options);
         $body = (string) $response->getBody();
         $data = json_decode($body, true);
         if ($response->getStatusCode() === 200) {
