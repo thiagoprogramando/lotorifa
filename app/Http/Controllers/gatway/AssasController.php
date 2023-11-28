@@ -52,15 +52,13 @@ class AssasController extends Controller {
         $data = json_decode($body, true);
         if ($response->getStatusCode() === 200) {
 
-            // $dados['json'] = [
-            //     'paymentId'     => $data['id'],
-            //     'customer'      => $data['customer'],
-            //     'paymentLink'   => $data['invoiceUrl'],
-            // ];
+            $dados['json'] = [
+                'paymentId'     => $data['id'],
+                'customer'      => $data['customer'],
+                'paymentLink'   => $data['invoiceUrl'],
+            ];
 
-            // return $dados;
-
-            var_dump($data);
+            return $dados;
         } else {
             return "Erro!";
         }

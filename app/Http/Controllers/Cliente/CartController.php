@@ -43,14 +43,17 @@ class CartController extends Controller {
         }
 
         $numberOfItems = count($numbers);
+
         $assasController = new GatwayAssasController();
         $token = $assasController->geraPix($user->name, $user->cpf, $numberOfItems, $user->token);
 
-        //End Cart
-        foreach ($numbers as $number) {
-            Bet::where('id', $number['numberId'])->update(['id_user' => $user->id, 'status' => 'PENDING_PAY', 'token' => $token, ]);
-        }
+        var_dump($token);
 
-        return response()->json(['success' => 'Parabéns! Agora é só esperar o sorteio!']);
+        //End Cart
+        // foreach ($numbers as $number) {
+        //     Bet::where('id', $number['numberId'])->update(['id_user' => $user->id, 'status' => 'PENDING_PAY', 'token' => $token, ]);
+        // }
+
+        // return response()->json(['success' => 'Parabéns! Agora é só esperar o sorteio!']);
     }
 }
