@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->integer('id_user')->nullable();
             $table->integer('number');
             $table->decimal('value', 10, 2);
-            $table->decimal('netValue', 10, 2);
+            $table->decimal('netValue', 10, 2)->nullable();
             $table->string('token')->nullable();
             $table->date('dueDate')->nullable();
             $table->string('invoiceUrl')->nullable();
