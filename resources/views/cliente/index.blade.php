@@ -134,7 +134,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <a href="afiliado.php" class="btn btn-get-started" type="submit">Quero ser afiliado</a>
+                                <a href="{{ route('afiliado') }}" class="btn btn-get-started">Quero ser afiliado</a>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                             O 1º lugar no ranking ganhará o super prêmio acumulado que será sorteado todos os meses.</p>
 
                         <div class="mt-4">
-                            <a href="ranking.php" class="btn btn-get-started" type="submit">Acompanhar classificação</a>
+                            <a href="{{ route('ranking') }}" class="btn btn-get-started">Acompanhar classificação</a>
                         </div>
                     </div>
                 </div>

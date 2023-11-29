@@ -158,8 +158,7 @@ function endCart() {
             if(response.encodedImage) {
 
                 Swal.fire({
-                    title: 'Aprovado!',
-                    text: 'Finalize o pagamento para ter seus números!',
+                    text: 'Pedido feito! Finalize o pagamento para ter seus números!',
                     icon: 'success',
                     imageUrl: 'data:image/png;base64,' + response.encodedImage,
                     imageAlt: 'QR Code',
@@ -177,7 +176,7 @@ function endCart() {
                         document.execCommand('copy');
                         document.body.removeChild(input);
 
-                        Swal.fire('Copiado!', 'O Pix copiado!', 'success');
+                        Swal.fire('Copiado!', 'Pix copiado!', 'success');
                     }
                 });
             } else {
