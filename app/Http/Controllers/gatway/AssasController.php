@@ -3,66 +3,127 @@
 namespace App\Http\Controllers\gatway;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use App\Models\User;
 
-use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class AssasController extends Controller {
     
-    public function geraPix($name, $cpf, $numberTotal, $token = null) {
+    public function geraCobranca($name, $cpf, $numberTotal, $token = null) {
+        
         $client = new Client();
 
-        if ($token != null) {
-            $options = [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'access_token' => env('API_TOKEN_ASSAS'),
-                ],
-                'json' => [
-                    'name'      => $name,
-                    'cpfCnpj'   => $cpf,
-                ],
-            ];
-            $response = $client->post(env('API_URL_ASSAS') . '/v3/customers', $options);
-            $body = (string) $response->getBody();
-            $data = json_decode($body, true);
+        if ($token) {
+            $customerId = $token;
+        } else {
+            $customerId = $this->createCustomer($client, $name, $cpf);
+            if (!$customerId) {
+                return false;
+            }
 
-            if ($response->getStatusCode() === 200) {
-                $customerId = $data['id'];
+            $user = User::where('cpf', $cpf)->first();
+            $user->token = $customerId;
+            $user->save();
+        }
+
+        $payment = $this->createPayment($client, $customerId, $numberTotal);
+        if($payment) {
+            return $payment;
+        } else {
+            return false;
+        }
+    }
+
+    private function createCustomer($client, $name, $cpf) {
+
+        $options = [
+            'headers' => [
+                'accept'        => 'application/json',
+                'Content-Type'  => 'application/json',
+                'access_token'  => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTc1MjA6OiRhYWNoX2YzNTdkZjNiLTllZDctNGQ3ZC1iMDdiLWU3Zjg4ODE3YzFjNg==',
+            ],
+            'json' => [
+                'name'    => $name,
+                'cpfCnpj' => $cpf,
+            ],
+            'verify' => false,
+        ];
+
+        $response = $client->post(env('API_URL_ASSAS') . 'v3/customers', $options);
+
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+            return $data['id'];
+        } else {
+            return false;
+        }
+    }
+
+    private function createPayment($client, $customerId, $numberTotal) {
+
+        $options = ['verify' => false];
+
+        $options = [
+            'headers' => [
+                'accept'       => 'application/json',
+                'Content-Type' => 'application/json',
+                'access_token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTc1MjA6OiRhYWNoX2YzNTdkZjNiLTllZDctNGQ3ZC1iMDdiLWU3Zjg4ODE3YzFjNg==',
+            ],
+            'json' => [
+                'customer'    => $customerId,
+                'billingType' => 'PIX',
+                'value'       => $numberTotal * 2,
+                'dueDate'     => now()->format('Y-m-d'),
+                'description' => 'LotoRifa - Boa sorte!',
+            ],
+            'verify' => false,
+        ];
+
+        $response = $client->post(env('API_URL_ASSAS') . 'v3/payments', $options);
+
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+
+            return [
+                'token'      => $data['id'],
+                'status'     => $data['status'],
+                'dueDate'    => $data['dueDate'],
+                'invoiceUrl' => $data['invoiceUrl'],
+                'netValue'   => $data['netValue'],
+            ];
+        } else {
+            return false;
+        }
+    }
+
+    public function geraPix($token) {
+
+        $client = new \GuzzleHttp\Client();
+    
+        try {
+            $response = $client->request('GET', 'https://sandbox.asaas.com/api/v3/payments/' . $token . '/pixQrCode', [
+                'headers' => [
+                    'accept'       => 'application/json',
+                    'access_token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTc1MjA6OiRhYWNoX2YzNTdkZjNiLTllZDctNGQ3ZC1iMDdiLWU3Zjg4ODE3YzFjNg==',
+                ],
+                'verify'  => false,
+            ]);
+    
+            $body = $response->getBody()->getContents();
+            $decodedBody = json_decode($body, true);
+    
+            if (isset($decodedBody['success']) && $decodedBody['success']) {
+                return [
+                    'encodedImage'   => $decodedBody['encodedImage'],
+                    'payload'        => $decodedBody['payload'],
+                    'expirationDate' => $decodedBody['expirationDate'],
+                ];
             } else {
                 return false;
             }
-        } else {
-            $customerId = $token;
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            return false;
         }
-
-        $tomorrow = Carbon::now()->addDay()->format('Y-m-d');
-
-        $options['json'] = [
-            'customer'          => $customerId,
-            'billingType'       => "PIX",
-            'value'             => $numberTotal * 2,
-            'dueDate'           => $tomorrow,
-            'description'       => 'LotoRifa - Boa sorte!',
-        ];
-
-        $response = $client->post(env('API_URL_ASSAS') . '/v3/payments', $options);
-        $body = (string) $response->getBody();
-        $data = json_decode($body, true);
-        if ($response->getStatusCode() === 200) {
-
-            $dados['json'] = [
-                'paymentId'     => $data['id'],
-                'customer'      => $data['customer'],
-                'paymentLink'   => $data['invoiceUrl'],
-            ];
-
-            return $dados;
-        } else {
-            return "Erro!";
-        }
-
     }
 
 }

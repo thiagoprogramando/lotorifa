@@ -41,8 +41,8 @@
                             href="{{ route('inicio') }}#portal-transparencia">Transparência</a></li>
 
                     @if (auth()->check())
-                        <li><a class="cart cartButton" href="#"><i class="bi bi-cart fs-4 text"></i></a>
-                        </li>
+                        <li><a class="nav-link scrollto" href="{{ route('carteira') }}">Carteira</a></li>
+                        <li><a class="cart cartButton" href="#"><i class="bi bi-cart fs-4 text"></i></a></li>
                         <li><a class="cart modalCart" href="{{ route('sairCliente') }}"><i class="bi bi-box-arrow-right fs-4"></i></a></li>
                     @else
                         <li><a class="nav-link scrollto" href="{{ route('afiliado') }}">Seja um Afiliado</a></li>
@@ -112,6 +112,8 @@
             </div>
         </div>
     </footer>
+
+    <input type="text" id="campoTextoOculto" style="position: absolute; left: -9999px; top: -9999px;">
 
     <div class="cart-modal" id="cartModal">
         <div class="modal-content">

@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('phone');
             $table->integer('validation')->nullable();
             $table->integer('id_sponsor')->nullable();
+            $table->string('coupon')->nullable();
+            $table->string('token')->nullable();
             $table->integer('type');
             $table->decimal('wallet', 10, 2)->nullable();
             $table->timestamps();

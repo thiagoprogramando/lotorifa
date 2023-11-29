@@ -108,4 +108,12 @@ class UserController extends Controller {
 
         return false;
     }
+
+    public function wallet() {
+
+        $wallet = auth()->user()->wallet;
+        $coupon = auth()->user()->coupon;
+
+        return view('cliente.wallet', ['wallet' => $wallet, 'coupon' => $coupon]);
+    }
 }

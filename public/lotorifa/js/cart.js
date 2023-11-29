@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             return item.gameId === gameId;
                         });
 
-                        if (numbersForGame.length >= 10) {
+                        if (numbersForGame.length > 50) {
                             Swal.fire('Erro', 'Você atingiu o limite máximo de números para este jogo!', 'error');
                         } else {
                             
@@ -115,10 +115,9 @@ function clearCart() {
 }
 
 function endCart() {
-    // Obtenha os números do carrinho do armazenamento local
+    
     var existingNumbers = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-    //Válidar 5 itens
     var numbersByGameId = {};
     existingNumbers.forEach(function (item) {
         if (!numbersByGameId[item.gameId]) {
@@ -127,13 +126,11 @@ function endCart() {
         numbersByGameId[item.gameId].push(item);
     });
 
-    // Verificar se cada gameId tem pelo menos 5 números
     var invalidGames = Object.keys(numbersByGameId).filter(function (gameId) {
         return numbersByGameId[gameId].length < 5;
     });
 
     if (invalidGames.length > 0) {
-        // Se houver algum gameId com menos de 5 números, mostrar erro
         var invalidGameNames = invalidGames.map(function (gameId) {
             return numbersByGameId[gameId][0].gameName;
         });
@@ -141,13 +138,11 @@ function endCart() {
         return;
     }
 
-    // Verifique se há números no carrinho
     if (existingNumbers.length === 0) {
         Swal.fire('Erro', 'Seu carrinho está vazio. Adicione números antes de finalizar.', 'error');
         return;
     }
 
-    // Faça a chamada AJAX para enviar os números para a rota Laravel
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         url: '/endcart',
@@ -159,13 +154,54 @@ function endCart() {
         success: function(response) {
             localStorage.removeItem('carrinho');
             updateCartModal();
-            Swal.fire('Sucesso', 'Parabéns! Agora é só esperar o sorteio!', 'success');
+
+            if(response.encodedImage) {
+
+                Swal.fire({
+                    title: 'Aprovado!',
+                    text: 'Finalize o pagamento para ter seus números!',
+                    icon: 'success',
+                    imageUrl: 'data:image/png;base64,' + response.encodedImage,
+                    imageAlt: 'QR Code',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Copiar Pix',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                        const input = document.createElement('textarea');
+                        input.value = response.payload;
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(input);
+
+                        Swal.fire('Copiado!', 'O Pix copiado!', 'success');
+                    }
+                });
+            } else {
+                Swal.fire({
+
+                    title: 'Aprovado!',
+                    text: 'Iremos te redirecionar para a página de pagamento!',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ir para pagamento',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                        window.location.href = response.link;
+                    }
+                });
+            }
         },
         error: function(error) {
             if (error.responseJSON && error.responseJSON.error) {
                 Swal.fire('Atenção', error.responseJSON.error, 'warning');
 
-                // Remove os números inválidos do carrinho local
                 var invalidNumbers = error.responseJSON.invalidNumbers || [];
                 var existingNumbers = JSON.parse(localStorage.getItem('carrinho')) || [];
                 var updatedNumbers = existingNumbers.filter(function(item) {
@@ -173,7 +209,6 @@ function endCart() {
                 });
                 localStorage.setItem('carrinho', JSON.stringify(updatedNumbers));
 
-                // Atualiza a exibição do carrinho no modal
                 updateCartModal();
             } else {
                 Swal.fire('Erro', error.responseText, 'error');

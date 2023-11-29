@@ -181,3 +181,22 @@
   });
 
 })()
+
+function copiaLink() {
+  
+  var campoTextoOculto = document.getElementById("campoTextoOculto");
+  var linkParaCopiar = document.getElementById("linkParaCopiar");
+  var urlParaCopiar = linkParaCopiar.getAttribute("data-url");
+
+  campoTextoOculto.value = urlParaCopiar;
+  campoTextoOculto.select();
+  document.execCommand("copy");
+
+  window.getSelection().removeAllRanges();
+
+  Swal.fire({
+    icon: 'info',
+    title: 'Link copiado!',
+    text: `${urlParaCopiar}`,
+  })
+}

@@ -6,6 +6,35 @@
   --light: #EDF5FF;
   --dark: #1D1D1C;
 }
+@keyframes tremor {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(-2px, -2px);
+  }
+
+  40% {
+    transform: translate(2px, 2px);
+  }
+
+  60% {
+    transform: translate(-2px, 0);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+img[data-selector="floatingCart"] {
+  animation: tremor 0.9s ease-in-out infinite;
+}
 
 /*--------------------------------------------------------------
 # General
@@ -110,7 +139,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 20px;
+  padding: 10px 0 10px 10px;
   font-size: 15px;
   color: var(--primary);
   white-space: nowrap;
@@ -529,8 +558,7 @@ section {
   border-collapse: collapse;
 }
 
-.jogos .numeros table, th, td,
-.resultados .numeros table, th, td {
+.resultados .table td {
   border: 1px solid #ccc;
 }
 
@@ -562,11 +590,6 @@ section {
   color: var(--primary);
   font-weight: 400;
 }
-
-/* .jogos .numeros li:hover {
-  background-color: var(--primary);
-  color: var(--light);
-} */
 
 .dis:hover {
   background-color: var(--primary);
@@ -673,6 +696,10 @@ section {
 
 .about .content .card p>span {
   font-weight: 500;
+}
+
+.about .content .card .table td {
+  border: 1px solid #ccc;
 }
 
 @media (max-width: 575px) {
@@ -831,6 +858,10 @@ section.descricao {
   border-bottom: 2px solid #007bff;
 }
 
+.descricao .card-afiliado .table td {
+  border: 1px solid #ccc;
+}
+
 .descricao .card-afiliado .table tr>td {
   text-transform: uppercase;
 }
@@ -944,6 +975,125 @@ section.descricao {
   }
 }
 
+/*--------------------------------------------------------------
+# Carteira
+--------------------------------------------------------------*/
+.carteira {
+  height: 100%;
+}
+
+.carteira .container {
+  padding-top: 60px;
+}
+
+.carteira .card {
+  background: #f4f4f6;
+  border: solid 1px #f4f4f6;
+}
+
+.carteira .card h5 {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.carteira .card p {
+  font-weight: 600;
+  font-size: 23px;
+}
+
+.carteira .card .numeros ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.carteira .card .numeros li {
+  margin: 5px 5px 5px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: 400;
+}
+
+.carteira .card .numeros li:hover {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.modal-carteira {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(77, 77, 77, .7);
+  transition: all .4s;
+}
+
+.modal-carteira:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content-carteira {
+  border-radius: 4px;
+  position: relative;
+  width: 500px;
+  max-width: 90%;
+  background: #fff;
+  padding: 1em 2em;
+}
+
+.modal-content-carteira .formulario {
+  padding-top: 15px;
+}
+
+.modal-content-carteira h5 {
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.modal-content-carteira .table td {
+  text-align: left;
+}
+
+.modal-content-carteira .table .bi-entrou {
+  color: var(--primary);
+}
+
+.modal-content-carteira .table .bi-saiu {
+  color: var(--orange);
+}
+
+.carteira .btn-get-started,
+.modal-content-carteira .btn-get-started {
+  font-size: 15px;
+  padding: 5px 15px;
+}
+
+.modal-content-carteira .modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+@media (max-width: 575px) {}
 
 /*--------------------------------------------------------------
 # Afiliado
@@ -1112,11 +1262,6 @@ section.descricao {
 .cart-modal .btn-close-white {
   color: var(--light);
 }
-
-/* .cart-modal .item {
-  display: flex;
-  align-items: center;
-} */
 
 .cart-modal .number {
   width: 40px;

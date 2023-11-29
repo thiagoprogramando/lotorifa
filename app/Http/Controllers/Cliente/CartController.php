@@ -45,15 +45,25 @@ class CartController extends Controller {
         $numberOfItems = count($numbers);
 
         $assasController = new GatwayAssasController();
-        $token = $assasController->geraPix($user->name, $user->cpf, $numberOfItems, $user->token);
-
-        var_dump($token);
+        $token = $assasController->geraCobranca($user->name, $user->cpf, $numberOfItems, $user->token);
 
         //End Cart
-        // foreach ($numbers as $number) {
-        //     Bet::where('id', $number['numberId'])->update(['id_user' => $user->id, 'status' => 'PENDING_PAY', 'token' => $token, ]);
-        // }
+        if($token['token']) {
+            foreach ($numbers as $number) {
+                Bet::where('id', $number['numberId'])->update(['id_user' => $user->id, 'netValue' => $token['netValue'], 'status' => $token['status'], 'token' => $token['token'], 'dueDate' => $token['dueDate'], 'invoiceUrl' => $token['invoiceUrl']]);
+            }
+        }
 
-        // return response()->json(['success' => 'Parabéns! Agora é só esperar o sorteio!']);
+        //QrCode
+        $qrcode = $assasController->geraPix($token['token']);
+        if($qrcode) {
+            return response()->json([
+                'encodedImage'    => $qrcode['encodedImage'],
+                'payload'         => $qrcode['payload'],
+                'expirationDate'  => $qrcode['expirationDate'],
+            ]);
+        }
+        
+        return response()->json(['error' => 'Atenção', 'message' => 'Não foi possivel gerar o QR CODE, iremos te redirecionar!', 'link' => $token['invoiceUrl']]);
     }
 }

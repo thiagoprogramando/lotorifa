@@ -45,5 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sairCliente', [UserController::class, 'logoutClient'])->name('sairCliente');
     
     //Cliente - Autenticado
+    Route::get('carteira', [ClienteUserController::class, 'wallet'])->name('carteira');
+
     Route::post('endcart', [CartController::class, 'endcart'])->name('endcart');
 });
