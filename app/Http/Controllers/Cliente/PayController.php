@@ -17,15 +17,15 @@ class PayController extends Controller {
         }
 
         $total = Bet::where('token', $token)->sum('value');
-        $commission = ($total * 20) / 100; //20%
+        $commission = ($total * 0.20) / 100;
 
         $user = User::where('id', $bet->id_user)->first();
         if($user->id_sponsor != null) {
  
             $influencer = User::where('id', $user->id_sponsor)->first();
             if($influencer->id_sponsor != null) {
-                $commissionAgente= ($commission * 20) / 100;
-                $commissionInfluencer = $commission - (($commission * 20) / 100);
+                $commissionAgente= ($commission * 0.20) / 100;
+                $commissionInfluencer = $commission - $commissionAgente;
 
                 $influencer->wallet = ($influencer->wallet + $commissionInfluencer);
                 $influencer->save();
