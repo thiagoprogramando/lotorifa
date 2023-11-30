@@ -19,12 +19,12 @@ class PayController extends Controller {
 
         //Verifica INDICADOR do Usuário
         $user = User::where('id', $bet->id_user)->first();
-        if($user->id_sponsor) {
+        if($user->id_sponsor != null) {
             //Existe Patrocinador
             $influencer = User::where('id', $user->id_sponsor)->first();
 
             //Verifica se influencer tem Agente
-            if($influencer->id_sponsor) {
+            if($influencer->id_sponsor != null) {
                 $commissionAgente= ($commission * 20) / 100;
                 $commissionInfluencer = $commission - (($commission * 20) / 100);
 
