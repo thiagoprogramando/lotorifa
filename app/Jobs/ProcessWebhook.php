@@ -2,13 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Http\Controllers\Cliente\PayController;
 use App\Models\Bet;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 class ProcessWebhook implements ShouldQueue {
     use Dispatchable;
-    
+
     public $jsonData;
 
     public function __construct($jsonData) {
@@ -26,6 +27,10 @@ class ProcessWebhook implements ShouldQueue {
                 $bet->status = 'PAYMENT_CONFIRMED';
                 $bet->save();
             }
+
+            $comission = new PayController();
+            $payComission = $comission->commission($token);
+
         }
     }
 }
