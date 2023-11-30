@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('coupon')->nullable();
             $table->string('token')->nullable();
             $table->integer('type');
+            $table->integer('points')->nullable();
             $table->decimal('wallet', 10, 2)->nullable();
             $table->timestamps();
         });

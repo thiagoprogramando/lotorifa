@@ -33,4 +33,9 @@ class Game extends Model
     public function winnerThree() {
         return $this->belongsTo(User::class, 'winner_three');
     }
+
+    public function bets() {
+        return $this->hasMany(Bet::class, 'id_game', 'id');
+    }
+
 }

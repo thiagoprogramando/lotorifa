@@ -14,16 +14,17 @@ Route::post('/loginAdmin', [UserController::class, 'login'])->name('loginAdmin')
 
 //CLIENTE - Não Autenticado
 Route::get('/', [IndexController::class, 'index'])->name('inicio');
+
 Route::get('/cadastro/{id?}', [IndexController::class, 'registre'])->name('cadastro');
+Route::post('createUser', [ClienteUserController::class, 'createUser'])->name('createUser');
+
 Route::get('/acesso', [IndexController::class, 'login'])->name('acesso');
+Route::post('loginCliente', [ClienteUserController::class, 'login'])->name('loginCliente');
+
 Route::get('/resultado', [IndexController::class, 'result'])->name('resultado');
 Route::get('/numeros/{id}', [IndexController::class, 'number_option'])->name('numeros');
 Route::get('/ranking', [IndexController::class, 'ranking'])->name('ranking');
 Route::get('/afiliado', [IndexController::class, 'affiliate'])->name('afiliado');
-
-Route::post('loginCliente', [ClienteUserController::class, 'login'])->name('loginCliente');
-Route::post('createUser', [ClienteUserController::class, 'createUser'])->name('createUser');
-
 Route::get('/cadastraCliente/{id?}', function ($id = null) { return view('register')->with('id', $id); });
 
 Route::middleware(['auth'])->group(function () {

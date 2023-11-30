@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->integer('id_user');
             $table->integer('type');
+            $table->integer('transition');
             $table->string('message');
             $table->decimal('value', 10, 2);
             $table->timestamps();

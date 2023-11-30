@@ -12,6 +12,7 @@
 
                                 <form class="mb-3" action="{{ route('createUser') }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="id_sponsor" value="{{ $id_sponsor }}"/>
                                     <input type="hidden" name="type" value="2"/>
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="name" placeholder="Nome:"/>

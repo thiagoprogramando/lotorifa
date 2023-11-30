@@ -5,58 +5,33 @@
             <div class="container">
                 <div class="row">
                     <div class="table-responsive text-nowrap">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">CPF</th>
-                                    <th scope="col">Pontos acumulados</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Jurandi Pereira Silva</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 1.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Maria das Dores Souza</td>
-                                    <td>000.***.***-00</td>
-                                    <td>R$ 10.000</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @if(count($users) > 0)
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">CPF</th>
+                                        <th scope="col">Pontos acumulados</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ substr_replace($user->cpf, '******', 3, 6) }}</td>
+                                            <td>{{ $user->points }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="mt-5 mb-5">
+                                <h1 class="text-light">Faça suas apostas, ganhe e veja seu nome aqui!</h1>
+                            </div>
+                        @endif
                     </div>
 
-                    <p class="mt-4">OBS: Após a entrega do prêmio acumulado mensal, a pontuação dos apostadores é zerada
-                        e se inicia uma nova corrida para o prêmio acumulado mensal.
-                    </p>
+                    <p class="mt-4"> OBS: Após a entrega do prêmio acumulado mensal, a pontuação dos apostadores é zerada e se inicia uma nova corrida para o prêmio acumulado mensal. </p>
                 </div>
             </div>
         </section>

@@ -158,7 +158,7 @@ function endCart() {
             if(response.encodedImage) {
 
                 Swal.fire({
-                    text: 'Pedido feito! Finalize o pagamento para ter seus números!',
+                    text: 'Pedido feito! Finalize o pagamento para confirmar seus números!',
                     icon: 'success',
                     imageUrl: 'data:image/png;base64,' + response.encodedImage,
                     imageAlt: 'QR Code',

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bet;
+use App\Models\Extract;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,12 +66,13 @@ class UserController extends Controller {
         }
 
         $attributes = [
-            'name'      => $request->name,
-            'cpf'       => str_replace(['.', '-'], '', $request->cpf),
-            'email'     => $request->email,
-            'password'  => bcrypt($request->password),
-            'phone'     => str_replace(['(', ')', ' ', '-'], '', $request->phone),
-            'type'      => 2,
+            'name'       => $request->name,
+            'cpf'        => str_replace(['.', '-'], '', $request->cpf),
+            'email'      => $request->email,
+            'password'   => bcrypt($request->password),
+            'phone'      => str_replace(['(', ')', ' ', '-'], '', $request->phone),
+            'type'       => 2,
+            'id_sponsor' => $request->id_sponsor,
         ];
         $user = User::create($attributes);
 
@@ -111,9 +115,33 @@ class UserController extends Controller {
 
     public function wallet() {
 
-        $wallet = auth()->user()->wallet;
-        $coupon = auth()->user()->coupon;
+        $user = auth()->user();
 
-        return view('cliente.wallet', ['wallet' => $wallet, 'coupon' => $coupon]);
+        $wallet = auth()->user()->wallet;
+        $coupon = auth()->user()->id;
+        $points = auth()->user()->points;
+
+        $extract = Extract::where('type', 3)->where('id_user', $user->id)->get();
+        $awards = Game::where('winner_one', $user->id)->orWhere('winner_two', $user->id)->orWhere('winner_three', $user->id)->get();
+        $bets = Bet::where('id_user', $user->id)->get();
+        $users = User::where('id_sponsor', $user->id)->get();
+
+        $gamers = Game::where('status', 1)->get();
+        $gamers->load(['bets' => function ($query) use ($user) {
+            $query->where('id_user', $user->id);
+        }]);
+
+        return view('cliente.wallet', 
+            [
+                'wallet'    => $wallet, 
+                'points'    => $points, 
+                'coupon'    => $coupon, 
+                'extract'   => $extract, 
+                'awards'    => $awards, 
+                'bets'      => $bets, 
+                'gamers'    => $gamers,
+                'users'     => $users
+            ]
+        );
     }
 }

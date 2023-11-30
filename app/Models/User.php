@@ -21,6 +21,7 @@ class User extends Authenticatable
         'validation',
         'id_sponsor',
         'type',
+        'points',
         'wallet',
     ];
 

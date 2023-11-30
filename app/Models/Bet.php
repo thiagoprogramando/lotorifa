@@ -19,4 +19,9 @@ class Bet extends Model
         'token',
         'status',
     ];
+
+    public function game() {
+        
+        return $this->belongsTo(Game::class, 'id_game', 'id');
+    }
 }

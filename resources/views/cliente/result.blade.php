@@ -23,7 +23,7 @@
                                         <tbody>
                                             <ul>
                                                 <li>{{ $game->number_one }}</li>
-                                                <li>{{ $game->number_tow }}</li>
+                                                <li>{{ $game->number_two }}</li>
                                                 <li>{{ $game->number_three }}</li>
                                             </ul>
                                         </tbody>
@@ -46,15 +46,15 @@
                                     <table class="table table-striped">
                                         <tbody>
                                             <tr>
-                                                <td>1º Sorteado: {{ optional($game->winnerOne)->name ?? 'Não indentificado' }} - R$ 400</td>
+                                                <td>1º Sorteado: {{ substr_replace(substr(optional($game->winnerOne)->name, 0, 20), '****', 3, 4) ?? 'Não indentificado' }} - R$ 400</td>
                                                 <td>400 pontos</td>
                                             </tr>
                                             <tr class="custom-row-color">
-                                                <td>2º Sorteado: {{ optional($game->winnerTwo)->name ?? 'Não indentificado' }} - R$ 200</td>
+                                                <td>2º Sorteado: {{ substr_replace(substr(optional($game->winnerTwo)->name, 0, 20), '****', 3, 4) ?? 'Não indentificado' }} - R$ 200</td>
                                                 <td>200 pontos</td>
                                             </tr>
                                             <tr class="custom-row-color">
-                                                <td>3º Sorteado: {{ optional($game->winnerThree)->name ?? 'Não indentificado' }} - R$ 100</td>
+                                                <td>3º Sorteado: {{ substr_replace(substr(optional($game->winnerThree)->name, 0, 20), '****', 3, 4) ?? 'Não indentificado' }} - R$ 100</td>
                                                 <td>100 pontos</td>
                                             </tr>
                                         </tbody>
