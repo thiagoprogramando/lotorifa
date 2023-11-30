@@ -4,6 +4,10 @@ namespace App\Http\Controllers\gatway;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Jobs\ProcessWebhook;
+
+use Illuminate\Http\Request;
+
 
 use GuzzleHttp\Client;
 
@@ -124,6 +128,16 @@ class AssasController extends Controller {
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             return false;
         }
+    }
+
+    public function webhook(Request $request) {
+        $jsonData = $request->json()->all();
+
+        if ($jsonData['event'] === 'PAYMENT_CONFIRMED' || $jsonData['event'] === 'PAYMENT_RECEIVED') {
+            ProcessWebhook::dispatch($jsonData);
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Webhook não utilizado']);
     }
 
 }
