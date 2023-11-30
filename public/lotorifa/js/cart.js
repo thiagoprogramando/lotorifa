@@ -166,6 +166,7 @@ function endCart() {
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Copiar Pix',
+                    cancelButtonText: 'Fechar',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         
