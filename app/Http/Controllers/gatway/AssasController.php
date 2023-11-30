@@ -131,13 +131,13 @@ class AssasController extends Controller {
     }
 
     public function webhook(Request $request) {
-        $jsonData = $request->json()->all();
+        return $jsonData = $request->json()->all();
 
-        if ($jsonData['event'] === 'PAYMENT_CONFIRMED' || $jsonData['event'] === 'PAYMENT_RECEIVED') {
-            ProcessWebhook::dispatch($jsonData);
-        }
+        // if ($jsonData['event'] === 'PAYMENT_CONFIRMED' || $jsonData['event'] === 'PAYMENT_RECEIVED') {
+        //     ProcessWebhook::dispatch($jsonData);
+        // }
 
-        return response()->json(['status' => 'success', 'message' => 'Webhook não utilizado']);
+        // return response()->json(['status' => 'success', 'message' => 'Webhook não utilizado']);
     }
 
 }
