@@ -11,7 +11,7 @@ class PayController extends Controller {
     
     public function commission($token) {
 
-        $bet = Bet::where('token', $token)->first('value');
+        $bet = Bet::where('token', $token)->first();
         if (!$bet) {
             return false;
         }
@@ -20,7 +20,7 @@ class PayController extends Controller {
         $commission = $total * 20 / 100;
 
         $user = User::where('id', $bet->id_user)->first();
-        if($user->id_sponsor != null) {
+        if($user && $user->id_sponsor != null) {
  
             $influencer = User::where('id', $user->id_sponsor)->first();
             if($influencer->id_sponsor != null) {
@@ -36,6 +36,8 @@ class PayController extends Controller {
 
             $influencer->wallet = ($influencer->wallet + $commission);
             $influencer->save();
+        } else {
+            return false;
         }
 
         return true;
