@@ -17,28 +17,52 @@ class PayController extends Controller {
         }
 
         $total = Bet::where('token', $token)->sum('value');
-        $commission = ($total * 0.20) / 100;
+        $commission = $total * 0.20; // Comissão é 20% do total
 
         $user = User::where('id', $bet->id_user)->first();
-        if($user->id_sponsor != null) {
- 
-            $influencer = User::where('id', $user->id_sponsor)->first();
-            if($influencer->id_sponsor != null) {
-                $commissionAgente= ($commission * 0.20) / 100;
-                $commissionInfluencer = $commission - $commissionAgente;
+        if (!$user || $user->id_sponsor === null) {
+            return true;
+        }
 
-                $influencer->wallet = ($influencer->wallet + $commissionInfluencer);
-                $influencer->save();
+        $influencer = User::find($user->id_sponsor);
+        if ($influencer && $influencer->id_sponsor === null) {
 
-                $agente = User::where('id', $influencer->id_sponsor)->first();
-                $agente->wallet = ($agente->wallet + $commissionAgente);
-            }
-
-            $influencer->wallet = ($influencer->wallet + $commission);
+            $influencer->wallet += $commission;
             $influencer->save();
         } else {
-            return false;
+
+            $commissionAgente = $commission * 0.20;
+            $commissionInfluencer = $commission - $commissionAgente;
+
+            $influencer->wallet += $commissionInfluencer;
+            $influencer->save();
+
+            $agente = User::find($influencer->id_sponsor);
+            if ($agente) {
+                $agente->wallet += $commissionAgente;
+                $agente->save();
+            }
         }
+
+        // if($user->id_sponsor != null) {
+ 
+        //     $influencer = User::where('id', $user->id_sponsor)->first();
+        //     if($influencer->id_sponsor != null) {
+        //         $commissionAgente= ($commission * 0.20) / 100;
+        //         $commissionInfluencer = $commission - $commissionAgente;
+
+        //         $influencer->wallet = ($influencer->wallet + $commissionInfluencer);
+        //         $influencer->save();
+
+        //         $agente = User::where('id', $influencer->id_sponsor)->first();
+        //         $agente->wallet = ($agente->wallet + $commissionAgente);
+        //     }
+
+        //     $influencer->wallet = ($influencer->wallet + $commission);
+        //     $influencer->save();
+        // } else {
+        //     return false;
+        // }
 
         return true;
     }
