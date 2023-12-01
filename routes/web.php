@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Cliente\CartController;
 use App\Http\Controllers\Cliente\IndexController;
+use App\Http\Controllers\Cliente\PayController;
 use App\Http\Controllers\Cliente\UserController as ClienteUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,17 +31,20 @@ Route::get('/cadastraCliente/{id?}', function ($id = null) { return view('regist
 Route::middleware(['auth'])->group(function () {
 
     //ADMIN - Autenticado
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::middleware(['checkUserType'])->group(function () {
 
-    Route::get('/jogos', [GameController::class, 'game'])->name('jogos');
-    Route::get('/viewGame/{id}', [GameController::class, 'viewGame'])->name('viewGame');
-    Route::post('/createGame', [GameController::class, 'createGame'])->name('createGame');
-    Route::post('/deleteGame', [GameController::class, 'deleteGame'])->name('deleteGame');
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::post('/blocksBet', [GameController::class, 'blocksBet'])->name('blocksBet');
-
-    Route::get('/premiados', [GameController::class, 'awarded'])->name('premiados');
+        Route::get('/jogos', [GameController::class, 'game'])->name('jogos');
+        Route::get('/viewGame/{id}', [GameController::class, 'viewGame'])->name('viewGame');
+        Route::post('/createGame', [GameController::class, 'createGame'])->name('createGame');
+        Route::post('/deleteGame', [GameController::class, 'deleteGame'])->name('deleteGame');
     
+        Route::post('/blocksBet', [GameController::class, 'blocksBet'])->name('blocksBet');
+    
+        Route::get('/premiados', [GameController::class, 'awarded'])->name('premiados');
+    });
+   
     //AMBOS - Autenticado
     Route::get('/sair', [UserController::class, 'logout'])->name('sair');
     Route::get('/sairCliente', [UserController::class, 'logoutClient'])->name('sairCliente');
@@ -49,4 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('carteira', [ClienteUserController::class, 'wallet'])->name('carteira');
 
     Route::post('endcart', [CartController::class, 'endcart'])->name('endcart');
+
+    Route::post('saque', [PayController::class, 'saque'])->name('saque');
 });

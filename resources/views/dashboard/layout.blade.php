@@ -12,6 +12,9 @@
         <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     </head>
 
     <body id="page-top">
@@ -190,13 +193,45 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+        
         <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
-        <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
+        <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                var tabela = $('#tabela').DataTable({
+                    "language": {
+                        "sEmptyTable":     "Nenhum registro encontrado",
+                        "sInfo":           "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando 0 até 0 de 0 registros",
+                        "sInfoFiltered":   "(Filtrados de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sInfoThousands":  ".",
+                        "sLengthMenu":     "_MENU_ resultados por página",
+                        "sLoadingRecords": "Carregando...",
+                        "sProcessing":     "Processando...",
+                        "sZeroRecords":    "Nenhum registro encontrado",
+                        "sSearch":         "Pesquisar",
+                        "oPaginate": {
+                            "sNext":     "Próximo",
+                            "sPrevious": "Anterior",
+                            "sFirst":    "Primeiro",
+                            "sLast":     "Último"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Ordenar colunas de forma ascendente",
+                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                        }
+                    },
+                    "pagingType": "simple"
+                });
 
+                tabela.on('init', function () {
+                    $('div.dataTables_filter input').addClass('form-control');
+                }).DataTable();
+            });
+        </script>
+        
     </body>
 </html>

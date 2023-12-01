@@ -77,28 +77,6 @@
                 </div>
             </div>
         </section>
-        
-        <section id="instituicao" class="instituicao">
-            <div class="container">
-
-                <div class="row d-flex justify-content-center text-center">
-                    <div class="col-lg-8">
-                        <h2>Você pode ajudar a Comunidade Fanuel comprando os números da sorte.</h2>
-                        <p>É proibida a participação de menores de 18 anos nos concursos da LOTORIFA.</p>
-
-                        <div class="infos">
-                            <p>
-                                Razão Social: Comunidade Fanuel
-                                <br>
-                                CNPJ: 05.469.409/0001-75
-                                <br>
-                                Endereço: R. Golfo de San Matias, 174 - Intermares<br> - Cabedelo/PB, CEP: 58.102-052
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
     
     <div id="modal-extrato" class="modal-carteira pt-5">
@@ -188,14 +166,25 @@
     <div id="modal-saque" class="modal-carteira pt-5">
         <div class="modal-content-carteira">
             <h5>Informe sua chave pix</h5>
-
             <div class="formulario">
-                <form id="" action="" method="POST">
+                <form action="{{ route('saque') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="chave-pix" name="chave-pix" placeholder="Chave pix" autofocus/>
+                        <select name="type" class="form-control">
+                            <option value="CPF">CPF</option>
+                            <option value="CNPJ">CNPJ</option>
+                            <option value="EMAIL">EMAIL</option>
+                            <option value="PHONE">TELEFONE</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-primary d-grid w-100" type="button">Confirmar</button>
+                        <input type="text" class="form-control" name="key_pix" placeholder="Chave Pix:" autofocus required/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Confirme sua senha:" required/>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit">Confirmar</button>
                     </div>
                 </form>
             </div>

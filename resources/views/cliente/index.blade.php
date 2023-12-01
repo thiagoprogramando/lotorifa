@@ -52,9 +52,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $gamer->title }}</h5>
-                                            <p class="card-text">Escolha números entre 01 e 500</p>
-                                            <a href="{{ route('numeros', ['id' => $gamer->id]) }}"
-                                                class="btn btn-get-started" type="submit">Escolha seus números</a>
+                                            <p class="card-text">Restam apenas {{ $gamer->bets_count }} números para o sorteio</p>
+                                            <a href="{{ route('numeros', ['id' => $gamer->id]) }}" class="btn btn-get-started" type="submit">Escolha seus números</a>
                                         </div>
                                     </div>
                                 </div>

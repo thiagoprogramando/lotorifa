@@ -11,7 +11,16 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $gamers = Game::where('status', 1)->get();
+        $gamers = Game::where('status', 1)->withCount([
+            'bets' => function ($query) {
+                $query->whereNull('id_user')->orWhere('id_user', '');
+            }
+        ])->get();
+
+        foreach ($gamers as $game) {
+            $totalBets = $game->bets_count;
+        }
+
         return view('cliente.index', ['gamers' => $gamers]);
     }
 
@@ -34,7 +43,7 @@ class IndexController extends Controller
     public function number_option($id) {
 
         $game = Game::find($id);
-        $numbers = Bet::where('id_game', $id)->orderBy('number', 'asc')->get();
+        $numbers = Bet::where('id_game', $id)->where('status', 'UNLOCKED')->orderBy('number', 'asc')->get();
 
         return view('cliente.number_options', ['numbers' => $numbers, 'game' => $game]);
     }
@@ -46,6 +55,7 @@ class IndexController extends Controller
     }
 
     public function affiliate() {
+
         return view('cliente.affiliate');
     }
 }

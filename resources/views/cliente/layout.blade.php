@@ -135,8 +135,9 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="{{ asset('lotorifa/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('lotorifa/js/main.js') }}"></script>
@@ -180,6 +181,26 @@
                     }
                     input.value = formattedValue;
                 });
+            });
+
+            function aplicarMascara() {
+                var tipoSelecionado = $('select[name="type"]').val();
+  
+                $('input[name="key_pix"]').unmask();
+
+                if (tipoSelecionado === 'CPF') {
+                    $('input[name="key_pix"]').mask('000.000.000-00');
+                } else if (tipoSelecionado === 'CNPJ') {
+                    $('input[name="key_pix"]').mask('00.000.000/0000-00');
+                } else if (tipoSelecionado === 'PHONE') {
+                    $('input[name="key_pix"]').mask('(00) 00000-0000');
+                }
+            }
+
+            aplicarMascara();
+
+            $('select[name="type"]').change(function() {
+                aplicarMascara();
             });
         });
     </script>

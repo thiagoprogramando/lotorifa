@@ -18,16 +18,18 @@ class GameController extends Controller {
     }
 
     public function viewGame($id) {
+        
         $game = Game::find($id);
         $bet = Bet::where('id_game', $game->id)->get();
         $value = Bet::where('id_game', $game->id)->where('status', 'APPROVED')->sum('value');
         $number = Bet::where('id_game', $game->id)->count();
-        $number_approved = Bet::where('id_game', $game->id)->where('status', 'APPROVED')->count();
+        $number_approved = Bet::where('id_game', $game->id)->where('status', 'APPROVED')->distinct('token')->count();
         
         return view('dashboard.jogos.view', ['game' => $game, 'bet' => $bet, 'value' => $value, 'number' => $number, 'number_approved' => $number_approved]);
     }
 
     public function createGame(Request $request) {
+
         $game = new Game();
         $game->title        = $request->title;
         $game->value_number = $request->value_number;
@@ -41,6 +43,7 @@ class GameController extends Controller {
                 $bet->id_game   = $game->id;
                 $bet->number    = $i;
                 $bet->value     = $game->value_number;
+                $bet->status    = 'UNLOCKED';
                 $bet->save();
             }
 
@@ -51,8 +54,8 @@ class GameController extends Controller {
     }
 
     public function deleteGame(Request $request) {
+
         $game = Game::find($request->id);
-    
         if ($game) {
             $game->delete();
             Bet::where('id_game', $request->id)->delete();
@@ -64,18 +67,19 @@ class GameController extends Controller {
     }
 
     public function blocksBet(Request $request) {
+
         $bet = Bet::find($request->id);
         $bet->id_user   = 0;
         $bet->token     = 0;
-        $bet->status    = 'BLOCK';
+        $bet->status    = $request->status;
         $bet->save();
 
         return redirect()->back()->with('success', 'Número bloqueado para apostas!');
     }
     
     public function awarded() {
-        $premiados = Bet::where('status', 'PREMIADO')->get();
 
+        $premiados = Bet::where('status', 'PREMIADO')->get();
         return view('dashboard.jogos.awarded', ['premiados' => $premiados]);
     }
 }

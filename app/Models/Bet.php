@@ -24,4 +24,9 @@ class Bet extends Model
         
         return $this->belongsTo(Game::class, 'id_game', 'id');
     }
+
+    public function user() {
+        
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
 }

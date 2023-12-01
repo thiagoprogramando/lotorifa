@@ -105,7 +105,7 @@ class AssasController extends Controller {
         $client = new \GuzzleHttp\Client();
     
         try {
-            $response = $client->request('GET', 'https://sandbox.asaas.com/api/v3/payments/' . $token . '/pixQrCode', [
+            $response = $client->request('GET', env('API_URL_ASSAS').'v3/payments/' . $token . '/pixQrCode', [
                 'headers' => [
                     'accept'       => 'application/json',
                     'access_token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTc1MjA6OiRhYWNoX2YzNTdkZjNiLTllZDctNGQ3ZC1iMDdiLWU3Zjg4ODE3YzFjNg==',
@@ -127,6 +127,43 @@ class AssasController extends Controller {
             }
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             return false;
+        }
+    }
+
+    public function saque($chave, $valor, $type) {
+        $client = new \GuzzleHttp\Client();
+    
+        try {
+            $response = $client->request('POST', env('API_URL_ASSAS').'v3/transfers', [
+                'headers' => [
+                    'accept'       => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'access_token' => '$aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAwNTc1MjA6OiRhYWNoX2YzNTdkZjNiLTllZDctNGQ3ZC1iMDdiLWU3Zjg4ODE3YzFjNg==',
+                ],
+                'json' => [
+                    'value' => $valor,
+                    'operationType' => 'PIX',
+                    'pixAddressKey' => $chave,
+                    'pixAddressKeyType' => $type,
+                    'description' => 'Saque LotoRifa LTDA',
+                ],
+                'verify'  => false,
+            ]);
+    
+            $body = $response->getBody()->getContents();
+            $decodedBody = json_decode($body, true);
+    
+            if ($decodedBody['status'] === 'PENDING') {
+                return ['success' => true, 'message' => 'Saque agendado com sucesso'];
+            } else {
+                return ['success' => false, 'message' => 'Situação do Saque: ' . $decodedBody['status']];
+            }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $response = $e->getResponse();
+            $body = $response->getBody()->getContents();
+            $decodedBody = json_decode($body, true);
+    
+            return ['success' => false, 'error' => $decodedBody['errors'][0]['description']];
         }
     }
 

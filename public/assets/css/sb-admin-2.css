@@ -11279,3 +11279,24 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+  float: left;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.next {
+  float: right;
+}
+
+/* Posicionamento do select à esquerda e ajuste de alinhamento vertical */
+.dataTables_wrapper .dataTables_length select {
+  float: left;
+  margin-right: 10px;
+  margin-top: 4px; /* Ajuste de alinhamento vertical */
+}
+
+/* Posicionamento do input de pesquisa à direita e ajuste de alinhamento vertical */
+.dataTables_wrapper .dataTables_filter input {
+  float: right;
+  margin-top: 4px; /* Ajuste de alinhamento vertical */
+}

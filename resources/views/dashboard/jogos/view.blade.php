@@ -15,7 +15,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -32,14 +32,31 @@
             </div>
         </div>
 
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Arrecação</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ $value }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ number_format($value, 2, ',', '.') }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Arrecação</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ number_format($value, 2, ',', '.') }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
@@ -58,8 +75,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Número</th>
                                 <th>Usuário</th>
+                                <th class="text-center">Número</th>
+                                <th>Situação</th>
                                 <th class="text-center">Valor</th>
                                 <th class="text-center">Opções</th>
                             </tr>
@@ -68,17 +86,32 @@
                             @foreach ($bet as $key =>$bet)
                             <tr>
                                 <td>{{ $bet->id }}</td>
-                                <td>{{ $bet->number }}</td>
-                                <td> @if($bet->id_user === 0) Bloqueado @else {{ $bet->id_user }} @endif</td>
+                                <td>
+                                    @if($bet->user)
+                                        {{ $bet->user->name }}
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ $bet->number }}</td>
+                                <td>
+                                    @if ($bet->status == 'PAYMENT_CONFIRMED')  
+                                        <span class="badge badge-success">Aprovado</span>
+                                    @else 
+                                        <span class="badge badge-danger">Pendente</span>
+                                    @endif
+                                </td>
                                 <td class="text-center">R$ {{ $bet->value }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('blocksBet') }}" method="POST">
                                         <input type="hidden" name="id" value="{{ $bet->id }}">
                                         <input type="hidden" value={{  csrf_token() }} name="_token">
-                                        @if($bet->id_user == null)
-                                            <button type="submit" class="btn btn-outline-danger"><i class="fas fa-ban"></i></button>
+                                        @if($bet->id_user == null && $bet->status != 'BLOCK')
+                                            <input type="hidden" name="status" value="BLOCK">
+                                            <button type="submit" class="btn btn-outline-danger"><i class="fas fa-lock"></i></button>
+                                        @else
+                                            <input type="hidden" name="status" value="UNLOCKED">
+                                            <button type="submit" class="btn btn-outline-success"><i class="fas fa-lock-open"></i></button>
                                         @endif
-                                        <a class="btn btn-outline-success" href="{{ $bet->token }}">Comprovante</a>
+                                        <a class="btn btn-outline-success" target="_blank" href="{{ $bet->invoiceUrl }}">Comprovante</a>
                                     </form>
                                 </td>
                             </tr>
