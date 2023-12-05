@@ -43,7 +43,7 @@ class IndexController extends Controller
     public function number_option($id) {
 
         $game = Game::find($id);
-        $numbers = Bet::where('id_game', $id)->where('status', 'UNLOCKED')->orderBy('number', 'asc')->get();
+        $numbers = Bet::where('id_game', $id)->where(function ($query) {$query->where('status', 'UNLOCKED')->orWhere('status', 'PENDING'); })->orderBy('number', 'asc')->get();
 
         return view('cliente.number_options', ['numbers' => $numbers, 'game' => $game]);
     }

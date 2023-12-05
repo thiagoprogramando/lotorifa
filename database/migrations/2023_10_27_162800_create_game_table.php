@@ -10,7 +10,8 @@ return new class extends Migration {
         Schema::create('game', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('id_creator');
+            $table->unsignedBigInteger('id_creator');
+            $table->foreign('id_creator')->references('id')->on('users')->onDelete('cascade');
             $table->integer('winner_one')->nullable();
             $table->integer('number_one')->nullable();
             $table->integer('winner_two')->nullable();
@@ -25,6 +26,6 @@ return new class extends Migration {
     }
 
     public function down(): void {
-        Schema::dropIfExists('table_game');
+        Schema::dropIfExists('game');
     }
 };

@@ -15,8 +15,11 @@ class Game extends Model
         'title',
         'id_creator',
         'winner_one',
+        'number_one',
         'winner_two',
+        'number_two',
         'winner_three',
+        'number_three',
         'value_number',
         'total_number',
         'status', // 1 - Aberto | 2 - Fechado | 3 - Concluído

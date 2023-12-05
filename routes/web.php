@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/blocksBet', [GameController::class, 'blocksBet'])->name('blocksBet');
     
         Route::get('/premiados', [GameController::class, 'awarded'])->name('premiados');
+        Route::post('createResult', [GameController::class, 'createResult'])->name('createResult');
     });
    
     //AMBOS - Autenticado

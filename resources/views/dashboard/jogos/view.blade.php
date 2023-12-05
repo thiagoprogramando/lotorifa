@@ -2,11 +2,13 @@
 @section('conteudo')
     
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Jogo: {{ $game->title }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Concurso: {{ $game->title }} - Situação: {{ $game->status }}</h1>
         @if ($number_approved == $number)
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-dice"></i> Gerar Premiação
-            </a>
+            <form action="{{ route('createResult') }}" method="POST">
+                @csrf
+                <input type="hidden" name="game" value="{{ $game->id }}">
+                <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-dice"></i> Gerar Premiação</button>
+            </form>  
         @else
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-user-slash"></i> Não disponível para Premiação
@@ -22,7 +24,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Apostas</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $number_approved }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $bets_approved }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-chess-knight fa-2x text-gray-300"></i>
@@ -50,16 +52,16 @@
         </div>
 
         <div class="col-xl-4 col-md-4 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-dark shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Arrecação</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ number_format($value, 2, ',', '.') }}</div>
+                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                Apostadores</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"> {{ $bettors }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

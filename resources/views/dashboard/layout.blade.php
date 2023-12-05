@@ -9,12 +9,14 @@
 
         <title>LotoRifa - Portal de Gestão</title>
 
+        <link href="{{ asset('lotorifa/img/favicon.svg') }}" rel="icon">
         <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body id="page-top">
@@ -193,7 +195,26 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-        
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: `{{ session('success') }}`,
+                })
+            </script>
+        @endif
+
+        @if (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Atenção',
+                    text: `{{ session('error') }}`,
+                })
+            </script>
+    @endif
+
         <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>

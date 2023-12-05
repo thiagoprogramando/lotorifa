@@ -9,7 +9,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('extract', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->integer('type');
             $table->integer('transition');
             $table->string('message');
@@ -22,3 +23,4 @@ return new class extends Migration {
         Schema::dropIfExists('extract');
     }
 };
+

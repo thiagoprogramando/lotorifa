@@ -73,6 +73,7 @@ class UserController extends Controller {
             'phone'      => str_replace(['(', ')', ' ', '-'], '', $request->phone),
             'type'       => 2,
             'id_sponsor' => $request->id_sponsor,
+            'wallet'     => 0
         ];
         $user = User::create($attributes);
 

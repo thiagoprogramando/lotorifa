@@ -30,7 +30,7 @@ class CartController extends Controller {
         foreach ($numbers as $number) {
 
             $bet = Bet::find($number['numberId']);
-            if (!$bet || $bet->id_user !== null || $bet->token !== null || $bet->status !== null) {
+            if (!$bet || $bet->id_user !== null || $bet->token !== null) {
                 $invalidNumbers[] = $number['numberId'];
             }
         }
